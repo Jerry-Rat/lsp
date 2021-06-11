@@ -1,0 +1,108 @@
+#端口服务配置
+server:
+  port: 8085   #端口号
+#  servlet:
+#    context-path: /main    #项目访问路径
+
+spring:
+  #配置多个不同的profile，实现在不同的环境（比如开发、测试和生产环境）使用不同的配置变量
+  # 默认的profile为dev，其他环境通过指定启动参数使用不同的profile，比如：
+  ##   测试环境：java -jar my-spring-boot.jar --spring.profiles.active=test
+  ##   生产环境：java -jar my-spring-boot.jar --spring.profiles.active=prod
+  #
+  profiles:
+    active: dev
+  #
+  #---
+  ## 开发环境配置
+  #spring:
+  #  profiles: dev
+  #mysql:
+  #  ipPort: localhost:3306
+  #
+  #---
+  ## 测试环境配置
+  #spring:
+  #  profiles: test
+  #mysql:
+  #  ipPort: ip:port
+  #
+  #---
+  ## 生产环境配置
+  #spring:
+  #  profiles: prod
+  #mysql:
+  #  ipPort: ip:port
+  #使用方法：
+  #通过指定启动参数使用不同的profile
+  #测试环境: java -jar my-spring-boot.jar --spring.profiles.active=test
+  #生产环境: java -jar my-spring-boot.jar --spring.profiles.active=prod
+  #在配置文件中指定 spring.profiles.active=dev
+  #虚拟机参数
+  #?-Dspring.profiles.active=dev
+
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lsp?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+
+  #  #redis
+  #  redis:
+  #    database: 0
+  #    host: localhost
+  #    port: 6379
+  #    password:
+  #    jedis:
+  #      pool:
+  #        max-active: 8
+  #        max-wait: -1
+  #        max-idle: 8
+  #        min-idle: 0
+  #    timeout: 0
+
+  #时间配置
+  jackson:
+    #指定日期格式，比如yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
+    #指定日期格式化时区
+    time-zone: GMT+8
+
+#  #模板引擎
+#  freemarker:
+#    suffix: .html   #设定模板的后缀
+#    request-context-attribute: request  #request访问request
+#    content-type: text/html
+#    enabled: true
+#    cache: false   #缓存配置
+#    template-loader-path: classpath:/templates/ #模板加载路径 按需配置
+#    charset: UTF-8   #编码格式
+#    settings:
+#      number_format: '0.##'   #数字格式化，无小数点
+
+#  #热部署--静态资源立即生效
+#  thymeleaf:
+#    cache: false                    #是否开启模板缓存，默认true
+#    encoding: UTF-8                 #指定模板的编码，默认为: UTF-8
+#    mode: HTML                      #指定模板的模式，具体查看StandardTemplateModeHandlers，默认为: HTML5
+#    prefix: classpath:/templates/   #前缀
+#    suffix: .html                   #后缀
+#    check-template-location: true  #是否检查模板路径是否存在，默认true
+#    servlet:
+#      content-type: text/html        #响应类型,指定Content-Type，默认为: text/html
+#  #热部署生效
+#  devtools:
+#    restart:
+#      enabled: true
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: cn.nt.entity
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
